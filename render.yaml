@@ -44,7 +44,7 @@ services:
   - type: worker
     name: chatwoot-worker
     env: ruby
-    plan: free
+    plan: starter
     repo: https://github.com/stick35em10/chatwoot
     branch: main
     buildCommand: bundle install
