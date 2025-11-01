@@ -1,0 +1,69 @@
+services:
+  - type: pserv
+    name: chatwoot-db
+    plan: free
+    databaseName: chatwoot_production
+    user: chatwoot
+    ipAllowList: []
+
+  - type: redis
+    name: chatwoot-redis
+    plan: free
+    ipAllowList: []
+
+  - type: web
+    name: chatwoot-web
+    env: ruby
+    plan: free
+    repo: https://github.com/YOUR_USERNAME/chatwoot
+    branch: master
+    buildCommand: bundle install && bundle exec rails assets:precompile && bundle exec rails db:migrate
+    startCommand: bundle exec puma -C config/puma.rb
+    healthCheckPath: /healthz
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: chatwoot-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          name: chatwoot-redis
+          property: connectionString
+      - key: RAILS_ENV
+        value: production
+      - key: SECRET_KEY_BASE
+        generateValue: true
+      - key: FRONTEND_URL
+        value: https://chatwoot-web.onrender.com
+      - key: MAILER_SENDER_EMAIL
+        value: your_email@example.com
+      - key: STORAGE_TYPE
+        value: local
+
+  - type: worker
+    name: chatwoot-worker
+    env: ruby
+    plan: free
+    repo: https://github.com/YOUR_USERNAME/chatwoot
+    branch: master
+    buildCommand: bundle install
+    startCommand: bundle exec sidekiq -C config/sidekiq.yml
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: chatwoot-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          name: chatwoot-redis
+          property: connectionString
+      - key: RAILS_ENV
+        value: production
+      - key: SECRET_KEY_BASE
+        fromService:
+          name: chatwoot-web
+          envVar: SECRET_KEY_BASE
+      - key: MAILER_SENDER_EMAIL
+        value: your_email@example.com
+      - key: STORAGE_TYPE
+        value: local
