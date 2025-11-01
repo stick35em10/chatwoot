@@ -15,8 +15,8 @@ services:
     name: chatwoot-web
     env: ruby
     plan: free
-    repo: https://github.com/YOUR_USERNAME/chatwoot
-    branch: master
+    repo: https://github.com/stick35em10/chatwoot
+    branch: main
     buildCommand: bundle install && bundle exec rails assets:precompile && bundle exec rails db:migrate
     startCommand: bundle exec puma -C config/puma.rb
     healthCheckPath: /healthz
@@ -46,7 +46,7 @@ services:
     env: ruby
     plan: free
     repo: https://github.com/YOUR_USERNAME/chatwoot
-    branch: master
+    branch: develop
     buildCommand: bundle install
     startCommand: bundle exec sidekiq -C config/sidekiq.yml
     envVars:
