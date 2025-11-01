@@ -65,7 +65,7 @@ services:
         fromService:
           type: web
           name: chatwoot-web
-          envVar: SECRET_KEY_BASE
+          envVarKey: SECRET_KEY_BASE
       - key: MAILER_SENDER_EMAIL
         value: your_email@example.com
       - key: STORAGE_TYPE
