@@ -1,6 +1,5 @@
 databases:
   - name: chatwoot-db
-    type: postgres
     plan: free
     databaseName: chatwoot_production
     user: chatwoot
