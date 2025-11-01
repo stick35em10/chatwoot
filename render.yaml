@@ -1,10 +1,11 @@
-services:
-  - type: pserv
-    name: chatwoot-db
+databases:
+  - name: chatwoot-db
     plan: free
     databaseName: chatwoot_production
     user: chatwoot
-    ipAllowList: []
+    region: oregon
+
+services:
 
   - type: redis
     name: chatwoot-redis
