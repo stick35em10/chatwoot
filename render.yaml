@@ -15,7 +15,7 @@ services:
     name: chatwoot-web
     env: ruby
     plan: free
-    repo: https://github.com/stick35em10/chatwoot
+    repo: https://github.com/stick35em10/chatwoot.git
     branch: main
     buildCommand: ls -la && bundle install && bundle exec rails assets:precompile && bundle exec rails db:migrate
     startCommand: bundle exec puma -C config/puma.rb
