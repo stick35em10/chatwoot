@@ -45,8 +45,8 @@ services:
     name: chatwoot-worker
     env: ruby
     plan: free
-    repo: https://github.com/YOUR_USERNAME/chatwoot
-    branch: develop
+    repo: https://github.com/stick35em10/chatwoot
+    branch: main
     buildCommand: bundle install
     startCommand: bundle exec sidekiq -C config/sidekiq.yml
     envVars:
